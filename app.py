@@ -138,8 +138,11 @@ def add_to_cart(product_id):
     product = Product.query.get(product_id)
 
     if user and product:
-        print(user)
-        print(product)
+        # Cria um novo item de carrinho
+        cart_item = CartItem(user_id=user.id, product_id=product.id)
+        # Adiciona o item de carrinho ao banco de dados
+        db.session.add(cart_item)
+        db.session.commit()
         return jsonify({'message': 'Item added to the cart successfully'})
     return jsonify({'message': 'Failed to add item to the cart'}), 400
 
